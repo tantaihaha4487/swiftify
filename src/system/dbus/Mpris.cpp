@@ -128,7 +128,8 @@ QVariantMap Mpris::metadata() const
         {QStringLiteral("mpris:trackid"), QVariant::fromValue(trackPath(song))},
         {QStringLiteral("xesam:title"), song.name},
         {QStringLiteral("xesam:artist"), artists},
-        {QStringLiteral("xesam:url"), QStringLiteral("https://open.spotify.com/track/") + song.spotifyId()},
+        // a file of the person's own is already a file:// url
+        {QStringLiteral("xesam:url"), song.isLocalFile() ? song.uri : QStringLiteral("https://open.spotify.com/track/") + song.spotifyId()},
     };
     if (!song.albumName.isEmpty()) {
         map.insert(QStringLiteral("xesam:album"), song.albumName);
