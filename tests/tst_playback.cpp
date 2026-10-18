@@ -618,6 +618,8 @@ private slots:
         const QVariantMap metadata = mpris.metadata();
         QCOMPARE(metadata.value(QStringLiteral("xesam:title")).toString(), queue[0].name);
         QCOMPARE(metadata.value(QStringLiteral("xesam:artist")).toStringList(), QStringList {queue[0].artists});
+        // a file of one's own points at the file, not at spotify
+        QCOMPARE(metadata.value(QStringLiteral("xesam:url")).toString(), queue[0].uri);
 
         rig.player.pause();
         QCOMPARE(mpris.playbackStatus(), QStringLiteral("Paused"));
